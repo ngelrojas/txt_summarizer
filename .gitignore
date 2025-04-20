@@ -1,3 +1,5 @@
 ./.DS_Store
 ./training/*.*
 ./.idea
+.idea
+.DS_Store
