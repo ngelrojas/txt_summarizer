@@ -8,12 +8,12 @@ from extract_files.extract_text_file_pdf import extract_text_from_pdf
 
 class RouterSummarize:
     router = APIRouter(prefix="/summarize", tags=["summarize"])
-    llm = ChatOllama(model="llama3")
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     @router.post("/", response_model=SummarizeResponse)
     async def create(req: SummarizeRequest):
         rel = req.file_path.lstrip("./")
+        model = req.model
         abs_path = os.path.join(RouterSummarize.BASE_DIR, rel)
         if not os.path.isfile(abs_path):
             raise HTTPException(404, f"File not found: {abs_path}")
@@ -26,8 +26,9 @@ class RouterSummarize:
         if not raw_text.strip():
             raise HTTPException(400, "No text extracted from file")
 
+        llm = ChatOllama(model=model)
         prompt = f"Summarize this text:\n\n{raw_text}\n\nTL;DR:"
-        response = RouterSummarize.llm.invoke(prompt)
+        response = llm.invoke(prompt)
         return SummarizeResponse(summary=response.content.strip())
 
     @router.get("/{summary_id}", response_model=SummarizeResponse)

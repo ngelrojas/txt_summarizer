@@ -3,4 +3,4 @@ training/*.*
 ./.idea
 .idea
 .DS_Store
-./*/__pycache__
+./summarize/__pycache__/*.pyc
