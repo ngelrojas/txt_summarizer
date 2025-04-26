@@ -7,3 +7,7 @@ training/*.*
  ./adapters/__pycache__/*.pyc
  summarize/__pycache__/*
  adapters/__pycache__/*
+ *.ini
+ ./db
+ ./alembic/
+ ./routers/*.pyc

@@ -6,6 +6,10 @@ from summarize.summarize_response import SummarizeResponse
 from summarize.summarize_request import SummarizeRequest
 from extract_files.extract_text_file_pdf import extract_text_from_pdf
 
+from connections.cnx import SessionDep
+from models.summarize_model import Summarize
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -38,9 +42,15 @@ class RouterSummarize:
         summary = adapter.summarize(raw_text)
         return SummarizeResponse(summary=summary)
 
-    @router.get("/{summary_id}", response_model=SummarizeResponse)
-    async def read(summary_id: str):
-        pass
+    @router.get("/{summarize_id}")
+    async def read(summarize_id: str, session: SessionDep) -> Summarize:
+        try:
+            summarize_txt = session.get(Summarize, summarize_id)
+            if not summarize_txt:
+                raise HTTPException(status_code=404, detail="Summarize not found")
+            return summarize_txt
+        except Exception as err:
+            raise HTTPException(404, f"{err} No summary found with id: {summarize_id}")
 
     @router.put("/{summary_id}", response_model=SummarizeResponse)
     async def update(summary_id: str, req: SummarizeRequest):
