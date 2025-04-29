@@ -1,12 +1,15 @@
 import os
-from fastapi import APIRouter, HTTPException
+from typing import Any, Type, Coroutine
+
+from fastapi import APIRouter, HTTPException, Depends
+from sqlalchemy.orm import Session
 from adapters.ollama_adapter import OllamaAdapter
 from adapters.openai_adapter import OpenAIAdapter
 from summarize.summarize_response import SummarizeResponse
 from summarize.summarize_request import SummarizeRequest
 from extract_files.extract_text_file_pdf import extract_text_from_pdf
 
-from connections.cnx import SessionDep
+from connections.cnx import Base, get_db
 from models.summarize_model import Summarize
 
 
@@ -43,9 +46,9 @@ class RouterSummarize:
         return SummarizeResponse(summary=summary)
 
     @router.get("/{summarize_id}")
-    async def read(summarize_id: str, session: SessionDep) -> Summarize:
+    async def read(summarize_id: str, db:Session = Depends(get_db)) -> Type[Summarize]:
         try:
-            summarize_txt = session.get(Summarize, summarize_id)
+            summarize_txt = db.get(Summarize, summarize_id)
             if not summarize_txt:
                 raise HTTPException(status_code=404, detail="Summarize not found")
             return summarize_txt

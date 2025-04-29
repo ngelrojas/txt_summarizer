@@ -11,3 +11,6 @@ training/*.*
  ./db
  ./alembic/
  ./routers/*.pyc
+ ./*.db
+ ./summarize.db
+*.sqlite
