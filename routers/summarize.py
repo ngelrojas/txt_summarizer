@@ -1,5 +1,5 @@
 import os
-from typing import Any, Type, Coroutine
+from typing import Type
 
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session

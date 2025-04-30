@@ -3,14 +3,11 @@ training/*.*
 ./.idea
 .idea
 .DS_Store
-./summarize/__pycache__/*.pyc
- ./adapters/__pycache__/*.pyc
- summarize/__pycache__/*
- adapters/__pycache__/*
  *.ini
  ./db
- ./alembic/
- ./routers/*.pyc
  ./*.db
  ./summarize.db
 *.sqlite
+# ───── Python byte-code ─────
+*.pyc
+__pycache__/
