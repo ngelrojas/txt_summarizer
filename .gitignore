@@ -3,4 +3,11 @@ training/*.*
 ./.idea
 .idea
 .DS_Store
-./*/__pycache__
+ *.ini
+ ./db
+ ./*.db
+ ./summarize.db
+*.sqlite
+# ───── Python byte-code ─────
+*.pyc
+__pycache__/
