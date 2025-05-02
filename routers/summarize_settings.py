@@ -1,6 +1,7 @@
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
+from holoviews.core import public
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 
@@ -17,17 +18,17 @@ def get_db_session():
 
 # Pydantic schemas
 class SummarizeBase(BaseModel):
-    file_path: str
-    text: str
-    link: str
+    model: str
+    provider: str
+    open_ai_key: str
 
 class SummarizeCreate(SummarizeBase):
     pass
 
 class SummarizeUpdate(BaseModel):
-    file_path: Optional[str] = None
-    text: Optional[str] = None
-    link: Optional[str] = None
+    model: Optional[str] = None
+    provider: Optional[str] = None
+    open_ai_key: Optional[str] = None
 
 class SummarizeRead(SummarizeBase):
     id: int
@@ -40,7 +41,7 @@ class SummarizeSettings:
     Class-based CRUD for summarize settings.
     """
     def __init__(self):
-        self.router = APIRouter(prefix="/summarize/files", tags=["files"])
+        self.router = APIRouter(prefix="/summarize/settings", tags=["settings"])
 
         # Register routes
         self.router.post("/", response_model=SummarizeRead)(self.create_summarize)

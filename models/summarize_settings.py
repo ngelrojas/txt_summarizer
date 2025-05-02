@@ -5,6 +5,6 @@ from connections.cnx import Base
 class SummarizeSettings(Base):
     __tablename__ = "summarize_settings"
     id = Column(Integer, primary_key=True, index=True)
-    file_path = Column(String)
-    text = Column(String)
-    link = Column(String)
+    model = Column(String)
+    provider = Column(String)
+    open_ai_key = Column(String)
