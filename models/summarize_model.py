@@ -7,5 +7,3 @@ class Summarize(Base):
     id = Column(Integer, primary_key=True, index=True)
     file_path = Column(String)
     text = Column(String)
-    model = Column(String)
-    provider = Column(String)

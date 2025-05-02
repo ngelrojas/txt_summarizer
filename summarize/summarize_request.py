@@ -6,9 +6,10 @@ from pydantic.v1 import root_validator
 
 class SummarizeRequest(BaseModel):
     file_path: str
-    model: str
-    provider: Literal['ollama', 'openai']
-    openai_api_key: Optional[str] = None
+    text: Optional[str] = None
+    # model: str
+    # provider: Literal['ollama', 'openai']
+    # openai_api_key: Optional[str] = None
 
     @root_validator
     def require_openai_key(cls, values):

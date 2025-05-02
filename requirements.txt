@@ -6,3 +6,4 @@ langchain-ollama
 pypdf2
 pytest
 sqlmodel
+fastapi-utils

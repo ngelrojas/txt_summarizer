@@ -5,6 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 from models.summarize_model import Summarize
+from models.summarize_settings import SummarizeSettings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
