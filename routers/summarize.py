@@ -50,21 +50,3 @@ class RouterSummarize:
 
         summary = adapter.summarize(raw_text)
         return SummarizeResponse(summary=summary)
-
-    @router.get("/{summarize_id}")
-    async def read(summarize_id: str, db:Session = Depends(get_db)) -> Type[Summarize]:
-        try:
-            summarize_txt = db.get(Summarize, summarize_id)
-            if not summarize_txt:
-                raise HTTPException(status_code=404, detail="Summarize not found")
-            return summarize_txt
-        except Exception as err:
-            raise HTTPException(404, f"{err} No summary found with id: {summarize_id}")
-
-    @router.put("/{summary_id}", response_model=SummarizeResponse)
-    async def update(summary_id: str, req: SummarizeRequest):
-        pass
-
-    @router.delete("/{summary_id}")
-    async def delete(summary_id: str):
-        pass
